@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KALKULATOR PAJAK KAMPUNG ATU LINTANG</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>KALKULATOR PAJAK KAMPUNG ATU LINTANG</h1>
+  <div class="container">
+    <label>Jenis Perhitungan:</label>
+    <select id="jenisHitung">
+      <option value="dpp">Dengan DPP (100/111)</option>
+      <option value="tanpa">Tanpa DPP</option>
+    </select>
+
+    <label>Jenis Belanja:</label>
+    <select id="jenisBelanja">
+      <option value="barang">Barang (PPh 1.5%)</option>
+      <option value="jasa">Jasa (PPh 2%)</option>
+    </select>
+
+    <label>Jumlah Belanja (Rp):</label>
+    <input type="text" id="belanja" placeholder="Masukkan jumlah belanja" oninput="formatInput(this)" />
+
+    <button onclick="hitungPajak()">Hitung Pajak</button>
+
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
