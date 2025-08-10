@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPID Desa Nagari Sako Pasia Talang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1B9B84 0%, #1B9B84 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #1B9B84 0%, #1B9B84 100%);
+            color: white;
+            padding: 25px 30px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            background: linear-gradient(135deg, #5a8c69 0%, #3c6f3d 100%);
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4A997E, #298064);
+        }
+
+        .section-header::before {
+            content: '▼';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .section.active .section-header::before {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #f8f9fc;
+        }
+
+        .section.active .section-content {
+            max-height: 1000px;
+        }
+
+        .menu-container {
+            padding: 30px;
+        }
+
+        .menu-item {
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-link {
+            display: block;
+            padding: 20px 25px;
+            text-decoration: none;
+            color: #2c5f2d;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .menu-link::after {
+            content: '→';
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .menu-link:hover {
+            background: #e8f5e8;
+            border-left-color: #4CAF50;
+            padding-right: 55px;
+            color: #1a4f1a;
+        }
+
+        .menu-link:hover::after {
+            opacity: 1;
+            transform: translateY(-50%) translateX(5px);
+        }
+
+        .sub-menu {
+            background: #f1f8e9;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .sub-menu-item {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .sub-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .sub-menu-link {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #2c5f2d;
+            font-weight: 400;
+            font-size: 0.95rem;
+            position: relative;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sub-menu-link::after {
+            content: '→';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #4CAF50;
+            font-size: 0.8rem;
+        }
+
+        .sub-menu-link:hover {
+            background: #c8e6c9;
+            border-left-color: #4CAF50;
+            padding-right: 45px;
+            color: #1a4f1a;
+        }
+
+        .sub-menu-link:hover::after {
+            opacity: 1;
+            transform: translateY(-50%) translateX(3px);
+        }
+
+        .roman-number {
+            font-weight: 700;
+            color: white;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .menu-container {
+                padding: 20px;
+            }
+
+            .section-header {
+                font-size: 1.3rem;
+                padding: 20px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PPID DESA NAGARI SAKO PASIA TALANG</h1>
+            <p>Pejabat Pengelola Informasi dan Dokumentasi</p>
+        </div>
+
+        <div class="content">
+            <!-- Section I: Informasi Produk -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="roman-number">I.</span>Informasi Publik
+                </div>
+                <div class="section-content">
+                    <div class="menu-container">
+                        <div class="menu-item">
+                            <a href="jenis-informasi-publik.html" class="menu-link">
+                                a. Jenis Informasi Publik
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="formulir-permohonan.html" class="menu-link">
+                                b. Formulir Permohonan Informasi Publik
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="formulir-keberatan.html" class="menu-link">
+                                c. Formulir Keberatan
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-link" style="cursor: default; padding-bottom: 10px;">
+                                d. Informasi Publik
+                            </div>
+                            <div class="sub-menu">
+                                <div class="sub-menu-item">
+                                    <a href="informasi-berkala.html" class="sub-menu-link">
+                                        1. Informasi Berkala
+                                    </a>
+                                </div>
+                                <div class="sub-menu-item">
+                                    <a href="informasi-serta-merta.html" class="sub-menu-link">
+                                        2. Informasi Serta Merta
+                                    </a>
+                                </div>
+                                <div class="sub-menu-item">
+                                    <a href="informasi-setiap-saat.html" class="sub-menu-link">
+                                        3. Informasi Setiap Saat
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section II: Profil PPID -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="roman-number">II.</span>Profil PPID
+                </div>
+                <div class="section-content">
+                    <div class="menu-container">
+                        <div class="menu-item">
+                            <a href="profil-singkat-ppid.html" class="menu-link">
+                                a. Profil Singkat PPID
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="tugas-fungsi-ppid.html" class="menu-link">
+                                b. Tugas dan Fungsi PPID
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="visi-misi-ppid.html" class="menu-link">
+                                c. Visi dan Misi PPID
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="struktur-organisasi-ppid.html" class="menu-link">
+                                d. Struktur Organisasi PPID
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section III: Layanan PPID -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="roman-number">III.</span>Layanan PPID
+                </div>
+                <div class="section-content">
+                    <div class="menu-container">
+                        <div class="menu-item">
+                            <a href="maklumat-pelayanan.html" class="menu-link">
+                                a. Maklumat Pelayanan PPID
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="jadwal-pelayanan.html" class="menu-link">
+                                b. Jadwal Pelayanan Informasi Publik
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="standar-biaya.html" class="menu-link">
+                                c. Standar Biaya Pelayanan
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="tata-cara-permohonan.html" class="menu-link">
+                                d. Tata Cara Permohonan Informasi Publik
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="tata-cara-keberatan.html" class="menu-link">
+                                e. Tata Cara Pengajuan Keberatan
+                            </a>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <a href="tata-cara-sengketa.html" class="menu-link">
+                                f. Tata Cara Pengajuan Permohonan Penyelesaian Sengketa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Section toggle functionality
+            const sectionHeaders = document.querySelectorAll('.section-header');
+            
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const section = this.closest('.section');
+                    const isActive = section.classList.contains('active');
+                    
+                    // Close all sections
+                    document.querySelectorAll('.section').forEach(s => {
+                        s.classList.remove('active');
+                    });
+                    
+                    // Open clicked section if it was closed
+                    if (!isActive) {
+                        section.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
