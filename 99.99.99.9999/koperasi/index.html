@@ -3,23 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Koperasi Desa Makmur Bersama</title>
-<meta name="description" content="Koperasi Desa Makmur Bersama — simpan pinjam, toko sembako, dan layanan pertanian untuk warga desa.">
+<title>Koperasi Desa Merah Putih</title>
+<meta name="description" content="Koperasi Desa Merah Putih — simpan pinjam, sembako murah, apotek &amp; klinik, hingga logistik desa untuk warga.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --hijau-sawah:#27452F;
-    --hijau-tua:#16271B;
-    --emas-padi:#D6A53C;
-    --emas-muda:#F0C766;
-    --tanah:#7A4B2E;
-    --kertas:#F5F0E3;
-    --kertas-gelap:#EBE3CF;
-    --tinta:#211F18;
-    --abu:#6B6657;
-    --garis:#D8CDAE;
+    --hijau-tua:#0E3B33;
+    --hijau-sawah:#145047;
+    --teal:#20C997;
+    --teal-pudar:#BFEEDF;
+    --kertas:#F4FAF8;
+    --kertas-gelap:#E7F4EF;
+    --tinta:#122620;
+    --abu:#5C7A72;
+    --garis:#CFE6DD;
     --maxw:1120px;
     --radius:14px;
   }
@@ -47,14 +46,14 @@
     font-size:0.78rem;
     text-transform:uppercase;
     letter-spacing:0.14em;
-    color:var(--tanah);
+    color:var(--hijau-sawah);
     font-weight:700;
   }
 
   /* ===== Header ===== */
   header{
     position:sticky;top:0;z-index:50;
-    background:rgba(245,240,227,0.92);
+    background:rgba(244,250,248,0.92);
     backdrop-filter:blur(6px);
     border-bottom:1px solid var(--garis);
   }
@@ -67,9 +66,10 @@
     width:36px;height:36px;border-radius:50%;
     background:var(--hijau-sawah);
     display:flex;align-items:center;justify-content:center;
-    color:var(--emas-muda);font-weight:700;font-family:'Fraunces',serif;
+    color:var(--teal);font-weight:700;font-family:'Fraunces',serif;
     flex-shrink:0;
   }
+  .brand small{font-weight:500;font-size:0.7rem;color:var(--hijau-sawah);}
   nav.menu{display:flex;gap:28px;align-items:center;}
   nav.menu a{font-size:0.95rem;font-weight:500;color:var(--tinta);}
   nav.menu a:hover{color:var(--hijau-sawah);}
@@ -80,10 +80,10 @@
     border:1px solid transparent;cursor:pointer;
     transition:transform .15s ease, background .2s ease, color .2s ease;
   }
-  .btn-primary{background:var(--hijau-sawah);color:var(--kertas);}
+  .btn-primary{background:var(--hijau-sawah);color:#fff;}
   .btn-primary:hover{background:var(--hijau-tua);}
   .btn-ghost{border-color:var(--hijau-sawah);color:var(--hijau-sawah);}
-  .btn-ghost:hover{background:var(--hijau-sawah);color:var(--kertas);}
+  .btn-ghost:hover{background:var(--hijau-sawah);color:#fff;}
   .btn:active{transform:scale(0.97);}
   .navtoggle{display:none;background:none;border:none;font-size:1.6rem;color:var(--hijau-tua);cursor:pointer;}
 
@@ -99,9 +99,9 @@
     padding-bottom:56px;
   }
   .hero h1{font-size:clamp(2.2rem, 4vw, 3.4rem);line-height:1.08;}
-  .hero h1 em{color:var(--tanah);font-style:normal;}
+  .hero h1 em{color:var(--hijau-sawah);font-style:normal;}
   .hero p.lede{
-    margin-top:18px;font-size:1.08rem;color:#3a3727;max-width:480px;
+    margin-top:18px;font-size:1.08rem;color:#33473F;max-width:480px;
   }
   .hero-cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
 
@@ -112,35 +112,35 @@
     padding:30px 28px;
     color:var(--kertas);
     position:relative;
-    box-shadow:0 24px 50px -20px rgba(22,39,27,0.55);
+    box-shadow:0 24px 50px -20px rgba(14,59,51,0.55);
   }
   .passbook::before{
     content:"";
     position:absolute;inset:10px;
-    border:1px dashed rgba(240,199,102,0.35);
+    border:1px dashed rgba(32,201,151,0.35);
     border-radius:12px;
     pointer-events:none;
   }
   .passbook-head{
     display:flex;justify-content:space-between;align-items:flex-start;
-    border-bottom:1px solid rgba(240,199,102,0.25);
+    border-bottom:1px solid rgba(32,201,151,0.25);
     padding-bottom:14px;margin-bottom:14px;
   }
-  .passbook-head .tag{font-family:'Fraunces',serif;font-size:1rem;color:var(--emas-muda);}
-  .passbook-head .no{font-size:0.78rem;color:rgba(245,240,227,0.55);}
+  .passbook-head .tag{font-family:'Fraunces',serif;font-size:1rem;color:var(--teal);}
+  .passbook-head .no{font-size:0.78rem;color:rgba(244,250,248,0.55);}
   .ledger-row{
     display:flex;justify-content:space-between;align-items:baseline;
-    padding:11px 0;border-bottom:1px dotted rgba(245,240,227,0.18);
+    padding:11px 0;border-bottom:1px dotted rgba(244,250,248,0.18);
     font-size:0.95rem;
   }
   .ledger-row:last-child{border-bottom:none;}
-  .ledger-row .label{color:rgba(245,240,227,0.7);}
-  .ledger-row .value{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;color:var(--emas-muda);}
+  .ledger-row .label{color:rgba(244,250,248,0.7);}
+  .ledger-row .value{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;color:var(--teal);}
   .stamp{
     position:absolute;right:18px;bottom:-16px;
     width:78px;height:78px;border-radius:50%;
-    border:2px solid var(--tanah);
-    color:var(--tanah);
+    border:2px solid var(--hijau-sawah);
+    color:var(--hijau-sawah);
     display:flex;align-items:center;justify-content:center;
     text-align:center;font-size:0.62rem;font-weight:700;letter-spacing:0.05em;
     text-transform:uppercase;background:var(--kertas);
@@ -154,7 +154,7 @@
   section{padding:84px 0;}
   .section-head{max-width:620px;margin-bottom:48px;}
   .section-head h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-top:10px;}
-  .section-head p{margin-top:14px;color:#4a4636;}
+  .section-head p{margin-top:14px;color:#3C534B;}
 
   /* ===== Tentang ===== */
   .tentang{background:var(--kertas-gelap);}
@@ -163,7 +163,7 @@
   .tentang-list li{display:flex;gap:12px;align-items:flex-start;font-size:0.97rem;}
   .tentang-list .ico{
     flex-shrink:0;width:28px;height:28px;border-radius:50%;
-    background:var(--hijau-sawah);color:var(--kertas);
+    background:var(--hijau-sawah);color:#fff;
     display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;
   }
   .visi-card{
@@ -171,8 +171,8 @@
     padding:26px;
   }
   .visi-card + .visi-card{margin-top:18px;}
-  .visi-card h3{font-size:1.05rem;color:var(--tanah);margin-bottom:8px;}
-  .visi-card p{margin:0;font-size:0.93rem;color:#4a4636;}
+  .visi-card h3{font-size:1.05rem;color:var(--hijau-sawah);margin-bottom:8px;}
+  .visi-card p{margin:0;font-size:0.93rem;color:#3C534B;}
 
   /* ===== Layanan ===== */
   .layanan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
@@ -183,38 +183,38 @@
     padding:26px 22px;
     transition:transform .2s ease, box-shadow .2s ease;
   }
-  .card:hover{transform:translateY(-4px);box-shadow:0 16px 30px -18px rgba(33,31,24,0.35);}
+  .card:hover{transform:translateY(-4px);box-shadow:0 16px 30px -18px rgba(14,59,51,0.3);}
   .card .ico-wrap{
     width:46px;height:46px;border-radius:12px;background:var(--hijau-sawah);
     display:flex;align-items:center;justify-content:center;margin-bottom:16px;
-    color:var(--emas-muda);
+    color:var(--teal);
   }
   .card h3{font-size:1.05rem;margin-bottom:8px;}
-  .card p{margin:0;font-size:0.9rem;color:#4a4636;}
+  .card p{margin:0;font-size:0.9rem;color:#3C534B;}
 
   /* ===== Keunggulan ===== */
   .keunggulan{background:var(--hijau-tua);color:var(--kertas);}
-  .keunggulan .section-head h2{color:var(--emas-muda);}
-  .keunggulan .section-head p{color:rgba(245,240,227,0.75);}
+  .keunggulan .section-head h2{color:var(--teal);}
+  .keunggulan .section-head .eyebrow{color:var(--teal);}
+  .keunggulan .section-head p{color:rgba(244,250,248,0.75);}
   .keunggulan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
   .stat{
-    border:1px solid rgba(240,199,102,0.25);
+    border:1px solid rgba(32,201,151,0.3);
     border-radius:var(--radius);
     padding:24px 20px;
     text-align:left;
   }
-  .stat .num{font-family:'Fraunces',serif;font-size:2.1rem;color:var(--emas-muda);font-weight:600;}
-  .stat .lbl{font-size:0.85rem;color:rgba(245,240,227,0.7);margin-top:6px;}
+  .stat .num{font-family:'Fraunces',serif;font-size:2.1rem;color:var(--teal);font-weight:600;}
+  .stat .lbl{font-size:0.85rem;color:rgba(244,250,248,0.7);margin-top:6px;}
 
   /* ===== Cara Bergabung ===== */
   .langkah-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
-  .langkah{position:relative;padding-left:0;}
   .langkah .step-no{
-    font-family:'Fraunces',serif;font-size:2.6rem;color:var(--emas-padi);
+    font-family:'Fraunces',serif;font-size:2.6rem;color:var(--teal);
     line-height:1;
   }
   .langkah h3{font-size:1.02rem;margin:10px 0 6px;}
-  .langkah p{margin:0;font-size:0.9rem;color:#4a4636;}
+  .langkah p{margin:0;font-size:0.9rem;color:#3C534B;}
 
   /* ===== Testimoni ===== */
   .testimoni{background:var(--kertas-gelap);}
@@ -226,7 +226,7 @@
   .testi-card p.quote{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--hijau-tua);margin:0 0 16px;font-weight:500;}
   .testi-who{display:flex;align-items:center;gap:10px;}
   .testi-who .avatar{
-    width:38px;height:38px;border-radius:50%;background:var(--tanah);color:var(--kertas);
+    width:38px;height:38px;border-radius:50%;background:var(--hijau-sawah);color:var(--teal);
     display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Fraunces',serif;
     flex-shrink:0;
   }
@@ -237,11 +237,11 @@
   .kontak-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
   .info-row{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;}
   .info-row .ico{
-    width:40px;height:40px;border-radius:10px;background:var(--hijau-sawah);color:var(--emas-muda);
+    width:40px;height:40px;border-radius:10px;background:var(--hijau-sawah);color:var(--teal);
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
   .info-row h4{margin:0 0 4px;font-size:0.95rem;}
-  .info-row p{margin:0;font-size:0.9rem;color:#4a4636;}
+  .info-row p{margin:0;font-size:0.9rem;color:#3C534B;}
   form.formulir{
     background:var(--kertas-gelap);border:1px solid var(--garis);border-radius:var(--radius);
     padding:28px;display:grid;gap:16px;
@@ -257,9 +257,10 @@
   .formulir textarea{resize:vertical;min-height:90px;}
 
   /* ===== Footer ===== */
-  footer{background:var(--hijau-tua);color:rgba(245,240,227,0.75);padding:46px 0 26px;}
-  .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;padding-bottom:30px;border-bottom:1px solid rgba(240,199,102,0.18);}
-  .footer-brand{display:flex;align-items:center;gap:10px;color:var(--kertas);font-family:'Fraunces',serif;font-weight:700;}
+  footer{background:var(--hijau-tua);color:rgba(244,250,248,0.75);padding:46px 0 26px;}
+  .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;padding-bottom:30px;border-bottom:1px solid rgba(32,201,151,0.2);}
+  .footer-brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:'Fraunces',serif;font-weight:700;}
+  .footer-brand .mark{background:var(--teal);color:var(--hijau-tua);}
   .footer-links{display:flex;gap:24px;flex-wrap:wrap;font-size:0.88rem;}
   .footer-bottom{padding-top:20px;font-size:0.8rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
 
@@ -289,7 +290,7 @@
   <div class="navbar wrap">
     <div class="brand">
       <span class="mark">KD</span>
-      <span>Koperasi Desa<br><small style="font-weight:500;font-size:0.7rem;color:var(--tanah);">Makmur Bersama</small></span>
+      <span>Koperasi Desa Merah Putih<br><small>[Nama Desa]</small></span>
     </div>
     <nav class="menu" id="menu">
       <a href="#tentang">Tentang</a>
@@ -305,9 +306,9 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow">Koperasi Desa · Berdiri sejak 2014</p>
-      <h1>Gotong royong, <em>dicatat rapi</em>, dirasakan bersama.</h1>
-      <p class="lede">Koperasi Desa Makmur Bersama menghimpun simpanan warga dan menyalurkannya kembali lewat pinjaman, toko sembako, dan dukungan usaha tani — supaya hasilnya kembali ke desa, bukan keluar dari desa.</p>
+      <p class="eyebrow">Koperasi Desa Merah Putih · Program Nasional</p>
+      <h1>Satu desa, <em>satu koperasi</em>, untuk semua warga.</h1>
+      <p class="lede">Koperasi Desa Merah Putih [Nama Desa] adalah bagian dari program nasional pembentukan koperasi di setiap desa dan kelurahan se-Indonesia. Kami menghimpun simpanan warga dan menyalurkannya kembali lewat simpan pinjam, sembako murah, apotek &amp; klinik, hingga logistik desa.</p>
       <div class="hero-cta">
         <a href="#kontak" class="btn btn-primary">Daftar Jadi Anggota</a>
         <a href="#layanan" class="btn btn-ghost">Lihat Layanan</a>
@@ -316,18 +317,18 @@
     <div class="passbook">
       <div class="passbook-head">
         <span class="tag">Buku Kas Koperasi</span>
-        <span class="no">No. Reg 014/KD/2014</span>
+        <span class="no">Sesuai Inpres No. 9/2025</span>
       </div>
       <div class="ledger-row"><span class="label">Jumlah anggota aktif</span><span class="value" data-count="382">0</span></div>
-      <div class="ledger-row"><span class="label">Total simpanan anggota</span><span class="value">Rp 1,2 M</span></div>
-      <div class="ledger-row"><span class="label">Unit usaha berjalan</span><span class="value" data-count="4">0</span></div>
-      <div class="ledger-row"><span class="label">Tahun beroperasi</span><span class="value" data-count="11">0</span></div>
+      <div class="ledger-row"><span class="label">Total simpanan anggota</span><span class="value">Rp 850 Jt</span></div>
+      <div class="ledger-row"><span class="label">Unit usaha berjalan</span><span class="value" data-count="5">0</span></div>
+      <div class="ledger-row"><span class="label">Status badan hukum</span><span class="value">Terdaftar</span></div>
       <div class="stamp">Sah &amp;<br>Terdaftar</div>
     </div>
   </div>
   <svg class="terrace" viewBox="0 0 1200 46" preserveAspectRatio="none">
-    <rect width="1200" height="46" fill="#EBE3CF"/>
-    <path d="M0 46 L0 30 L150 30 L150 18 L350 18 L350 8 L600 8 L600 0 L1200 0 L1200 46 Z" fill="#F5F0E3"/>
+    <rect width="1200" height="46" fill="#E7F4EF"/>
+    <path d="M0 46 L0 30 L150 30 L150 18 L350 18 L350 8 L600 8 L600 0 L1200 0 L1200 46 Z" fill="#F4FAF8"/>
   </svg>
 </section>
 
@@ -336,9 +337,9 @@
     <div>
       <p class="eyebrow">Tentang Kami</p>
       <h2>Milik warga, dijalankan untuk warga.</h2>
-      <p style="margin-top:14px;color:#4a4636;">Koperasi ini dibentuk oleh dan untuk warga Desa, dengan prinsip satu anggota satu suara. Setiap keputusan besar diambil dalam Rapat Anggota Tahunan, dan sisa hasil usaha (SHU) dibagikan kembali kepada anggota setiap tahun.</p>
+      <p style="margin-top:14px;color:#3C534B;">Koperasi Desa Merah Putih [Nama Desa] dibentuk sebagai bagian dari program nasional Koperasi Desa/Kelurahan Merah Putih, dengan prinsip gotong royong, kekeluargaan, dan partisipasi aktif seluruh anggota. Setiap keputusan besar diambil dalam Rapat Anggota Tahunan, dan sisa hasil usaha (SHU) dibagikan kembali kepada anggota setiap tahun.</p>
       <ul class="tentang-list">
-        <li><span class="ico">✓</span><span>Berbadan hukum dan diawasi sesuai regulasi perkoperasian.</span></li>
+        <li><span class="ico">✓</span><span>Berbadan hukum dan terdaftar resmi sebagai koperasi desa.</span></li>
         <li><span class="ico">✓</span><span>Laporan keuangan dibuka setiap Rapat Anggota Tahunan.</span></li>
         <li><span class="ico">✓</span><span>Bunga pinjaman lebih ringan dibanding rentenir atau pinjaman online.</span></li>
         <li><span class="ico">✓</span><span>Sisa hasil usaha dibagi kembali ke anggota tiap akhir tahun.</span></li>
@@ -351,7 +352,7 @@
       </div>
       <div class="visi-card">
         <h3>Misi</h3>
-        <p>Menghimpun simpanan warga, menyalurkan pinjaman yang terjangkau, mengelola toko sembako desa, dan mendampingi usaha tani anggota dari hulu ke hilir.</p>
+        <p>Menghimpun simpanan warga, menyalurkan pinjaman yang terjangkau, menyediakan sembako murah dan layanan kesehatan dasar, serta mendukung distribusi hasil pertanian dan UMKM desa.</p>
       </div>
     </div>
   </div>
@@ -361,8 +362,8 @@
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Layanan Koperasi</p>
-      <h2>Empat unit usaha, satu tujuan: warga sejahtera.</h2>
-      <p>Setiap unit usaha dikelola terpisah, tapi keuntungannya kembali ke kas koperasi dan anggotanya.</p>
+      <h2>Beberapa unit usaha, satu tujuan: warga sejahtera.</h2>
+      <p>Sebagian unit usaha resmi Koperasi Desa Merah Putih yang sudah berjalan di sini. Setiap unit dikelola terpisah, namun keuntungannya kembali ke kas koperasi dan anggotanya.</p>
     </div>
     <div class="layanan-grid">
       <div class="card">
@@ -372,18 +373,18 @@
       </div>
       <div class="card">
         <div class="ico-wrap">🛒</div>
-        <h3>Toko Sembako (Waserda)</h3>
-        <p>Menjual kebutuhan harian dengan harga bersaing, terbuka untuk anggota maupun warga umum.</p>
+        <h3>Gerai Sembako Murah</h3>
+        <p>Menjual kebutuhan harian dengan harga terjangkau untuk menekan inflasi pangan, terbuka untuk anggota maupun warga umum.</p>
       </div>
       <div class="card">
-        <div class="ico-wrap">🌱</div>
-        <h3>Saprotan &amp; Pertanian</h3>
-        <p>Menyediakan pupuk, benih, dan alat pertanian, serta pendampingan teknis bagi anggota yang bertani.</p>
+        <div class="ico-wrap">⚕️</div>
+        <h3>Apotek &amp; Klinik Desa</h3>
+        <p>Menyediakan obat-obatan dan layanan kesehatan dasar agar warga tidak perlu jauh-jauh ke kota.</p>
       </div>
       <div class="card">
         <div class="ico-wrap">📦</div>
-        <h3>Pemasaran Hasil Tani</h3>
-        <p>Membantu anggota menjual hasil panen dengan harga lebih stabil melalui jaringan koperasi.</p>
+        <h3>Logistik &amp; Cold Storage</h3>
+        <p>Pergudangan dan distribusi hasil pertanian serta produk UMKM desa agar sampai ke pasar dengan harga lebih stabil.</p>
       </div>
     </div>
   </div>
@@ -392,15 +393,15 @@
 <section class="keunggulan">
   <div class="wrap">
     <div class="section-head">
-      <p class="eyebrow" style="color:var(--emas-muda);">Capaian Kami</p>
+      <p class="eyebrow">Capaian Kami</p>
       <h2>Angka yang tumbuh bersama desa.</h2>
       <p>Dicatat dari laporan Rapat Anggota Tahunan terakhir.</p>
     </div>
     <div class="keunggulan-grid">
       <div class="stat"><div class="num">382</div><div class="lbl">Anggota aktif</div></div>
-      <div class="stat"><div class="num">Rp 1,2 M</div><div class="lbl">Total aset koperasi</div></div>
+      <div class="stat"><div class="num">Rp 850 Jt</div><div class="lbl">Total aset koperasi</div></div>
       <div class="stat"><div class="num">96%</div><div class="lbl">Tingkat pengembalian pinjaman</div></div>
-      <div class="stat"><div class="num">11 thn</div><div class="lbl">Beroperasi tanpa henti</div></div>
+      <div class="stat"><div class="num">5 unit</div><div class="lbl">Unit usaha aktif</div></div>
     </div>
   </div>
 </section>
@@ -445,15 +446,15 @@
     <div class="testi-grid">
       <div class="testi-card">
         <p class="quote">"Pinjaman modal warung saya cair cepat, bunganya jauh lebih ringan dibanding di luar."</p>
-        <div class="testi-who"><span class="avatar">S</span><div><div class="name">Bu Siti</div><div class="role">Pedagang warung, anggota sejak 2017</div></div></div>
+        <div class="testi-who"><span class="avatar">S</span><div><div class="name">Bu Siti</div><div class="role">Pedagang warung, anggota sejak 2025</div></div></div>
       </div>
       <div class="testi-card">
-        <p class="quote">"Sejak ada unit saprotan, saya tidak perlu lagi ke kota untuk beli pupuk dan benih."</p>
-        <div class="testi-who"><span class="avatar">P</span><div><div class="name">Pak Darmin</div><div class="role">Petani padi, anggota sejak 2015</div></div></div>
+        <p class="quote">"Sembako di gerai koperasi lebih murah, jadi belanja bulanan keluarga jauh lebih ringan."</p>
+        <div class="testi-who"><span class="avatar">P</span><div><div class="name">Pak Darmin</div><div class="role">Petani padi, anggota sejak 2025</div></div></div>
       </div>
       <div class="testi-card">
         <p class="quote">"SHU akhir tahun selalu jelas dan dibagikan tepat waktu. Laporannya juga terbuka di rapat."</p>
-        <div class="testi-who"><span class="avatar">R</span><div><div class="name">Pak Rohman</div><div class="role">Anggota sejak 2014</div></div></div>
+        <div class="testi-who"><span class="avatar">R</span><div><div class="name">Pak Rohman</div><div class="role">Anggota sejak 2025</div></div></div>
       </div>
     </div>
   </div>
@@ -478,10 +479,10 @@
       </div>
       <div class="info-row">
         <div class="ico">✉️</div>
-        <div><h4>Email</h4><p>koperasi.makmurbersama@gmail.com</p></div>
+        <div><h4>Email</h4><p>koperasi.merahputih@gmail.com</p></div>
       </div>
     </div>
-    <form class="formulir" action="mailto:koperasi.makmurbersama@gmail.com" method="post" enctype="text/plain">
+    <form class="formulir" action="mailto:koperasi.merahputih@gmail.com" method="post" enctype="text/plain">
       <div>
         <label for="nama">Nama lengkap</label>
         <input type="text" id="nama" name="nama" placeholder="Nama sesuai KTP" required>
@@ -495,8 +496,8 @@
         <select id="minat" name="minat">
           <option>Pendaftaran anggota baru</option>
           <option>Simpan pinjam</option>
-          <option>Toko sembako</option>
-          <option>Saprotan / pertanian</option>
+          <option>Gerai sembako</option>
+          <option>Apotek &amp; klinik</option>
           <option>Pertanyaan lain</option>
         </select>
       </div>
@@ -512,7 +513,7 @@
 <footer>
   <div class="wrap">
     <div class="footer-grid">
-      <div class="footer-brand"><span class="mark" style="background:var(--emas-padi);color:var(--hijau-tua);">KD</span> Koperasi Desa Makmur Bersama</div>
+      <div class="footer-brand"><span class="mark" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;">KD</span> Koperasi Desa Merah Putih [Nama Desa]</div>
       <div class="footer-links">
         <a href="#tentang">Tentang</a>
         <a href="#layanan">Layanan</a>
@@ -521,7 +522,7 @@
       </div>
     </div>
     <div class="wrap footer-bottom">
-      <span>© 2026 Koperasi Desa Makmur Bersama. Berbadan hukum koperasi.</span>
+      <span>© 2026 Koperasi Desa Merah Putih [Nama Desa]. Bagian dari Program Koperasi Desa/Kelurahan Merah Putih.</span>
       <span>Dibuat untuk warga, oleh warga.</span>
     </div>
   </div>
