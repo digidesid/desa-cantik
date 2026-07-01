@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desa Anti Korupsi — Desa Sumber Agung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7EE;
+    --surface:#FFFFFF;
+    --ink:#1B2420;
+    --ink-soft:#57604F;
+    --green-deep:#0F3D2E;
+    --green-mid:#1F6844;
+    --green-line:#D9E6DD;
+    --gold:#E8A33D;
+    --gold-deep:#B87A1F;
+    --rule:#E4DECB;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream); color:var(--ink);
+    font-family:'Plus Jakarta Sans', sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  a{color:inherit;}
+
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    background:rgba(251,247,238,.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--rule);
+  }
+  .topbar-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px; max-width:1080px; margin:0 auto; flex-wrap:wrap; gap:10px;
+  }
+  .brand{display:flex; align-items:center; gap:9px; font-weight:700; font-size:14.5px;}
+  .brand .sq{width:10px;height:10px; background:var(--green-deep); border-radius:2px;}
+  .topbar nav{display:flex; gap:10px; flex-wrap:wrap;}
+  .topbar nav a{
+    font-size:12.5px; font-weight:600; text-decoration:none; color:var(--ink-soft);
+    padding:6px 10px; border-radius:20px; border:1px solid transparent;
+  }
+  .topbar nav a:hover{color:var(--green-deep); border-color:var(--rule);}
+
+  .hero{padding:56px 0 20px;}
+  .signboard{
+    background:var(--green-deep); border-radius:20px; padding:46px 40px 40px;
+    position:relative; overflow:hidden; box-shadow:0 24px 50px -28px rgba(15,61,46,.65);
+  }
+  .signboard::before{
+    content:""; position:absolute; inset:10px;
+    border:1.5px solid rgba(255,255,255,.18); border-radius:12px; pointer-events:none;
+  }
+  .signboard .kicker{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:#BFE0CC; margin-bottom:18px;
+  }
+  .signboard h1{
+    font-family:'Archivo', sans-serif; font-weight:900; font-size:clamp(34px, 6vw, 60px);
+    letter-spacing:-.01em; line-height:1.02; color:#FFFFFF;
+  }
+  .signboard .loc{margin-top:16px; font-size:15px; color:#D8ECDD; font-weight:500;}
+  .signboard .desc{margin-top:14px; font-size:14.5px; color:#CFE8D7; max-width:62ch;}
+  .pillars-strip{
+    margin-top:28px; display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .pillar-chip{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.03em;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16);
+    color:#CFE8D7; padding:7px 12px; border-radius:20px; text-decoration:none;
+  }
+  .pillar-chip b{color:var(--gold); margin-right:5px;}
+  .pillar-chip:hover{border-color:var(--gold);}
+
+  section.pilar{padding:44px 0; border-top:1px solid var(--rule);}
+  .pilar-head{
+    display:flex; align-items:baseline; gap:14px; margin-bottom:18px; flex-wrap:wrap;
+  }
+  .pilar-head .roman{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--gold-deep);
+    font-weight:700; letter-spacing:.04em;
+    background:var(--green-line); color:var(--green-deep);
+    padding:4px 10px; border-radius:8px;
+  }
+  .pilar-head a.pilar-title{
+    font-family:'Archivo', sans-serif; font-weight:800; font-size:21px; color:var(--green-deep);
+    text-decoration:none; border-bottom:2px solid transparent;
+  }
+  .pilar-head a.pilar-title:hover{border-color:var(--gold);}
+  .pilar-head .go-folder{
+    font-size:12px; font-weight:600; color:var(--gold-deep); text-decoration:none;
+    border-bottom:1.5px solid var(--gold); margin-left:auto;
+  }
+
+  .sub-list{display:flex; flex-direction:column; gap:10px;}
+  .sub-row{
+    display:flex; align-items:center; gap:14px;
+    background:var(--surface); border:1px solid var(--rule); border-radius:12px;
+    padding:15px 18px; text-decoration:none; transition:.15s ease;
+  }
+  .sub-row:hover{border-color:var(--gold);}
+  .sub-no{
+    flex:0 0 auto; min-width:44px; text-align:center;
+    font-family:'IBM Plex Mono', monospace; font-weight:700; font-size:12.5px;
+    color:var(--green-mid); background:var(--green-line); border-radius:8px; padding:6px 8px;
+  }
+  .sub-title{flex:1; font-size:14px; font-weight:500; color:var(--ink);}
+  .sub-go{font-size:12px; color:var(--gold-deep); font-weight:600; white-space:nowrap;}
+
+  footer.site{
+    padding:34px 0 50px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#9AA394;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width:640px){
+    .signboard{padding:32px 22px 30px; border-radius:16px;}
+    .pilar-head .go-folder{margin-left:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="sq"></span> Desa Sumber Agung</div>
+    <nav>
+      <a href="#pilar-1">I. Tata Laksana</a>
+      <a href="#pilar-2">II. Pengawasan</a>
+      <a href="#pilar-3">III. Pelayanan Publik</a>
+      <a href="#pilar-4">IV. Partisipasi</a>
+      <a href="#pilar-5">V. Kearifan Lokal</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero" style="padding-bottom:0;">
+    <div class="signboard">
+      <div class="kicker">Program Penilaian</div>
+      <h1>Desa Anti Korupsi</h1>
+      <div class="loc">Desa Sumber Agung · Kecamatan Rimbo Ilir · Kabupaten Tebo · Provinsi Jambi</div>
+      <div class="desc">Dokumentasi bukti dukung penerapan lima pilar Desa Anti Korupsi: penguatan tata laksana, pengawasan, kualitas pelayanan publik, partisipasi masyarakat, dan kearifan lokal.</div>
+      <div class="pillars-strip">
+        <a class="pillar-chip" href="#pilar-1"><b>I</b>Tata Laksana</a>
+        <a class="pillar-chip" href="#pilar-2"><b>II</b>Pengawasan</a>
+        <a class="pillar-chip" href="#pilar-3"><b>III</b>Pelayanan Publik</a>
+        <a class="pillar-chip" href="#pilar-4"><b>IV</b>Partisipasi</a>
+        <a class="pillar-chip" href="#pilar-5"><b>V</b>Kearifan Lokal</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILAR I -->
+  <section class="pilar" id="pilar-1">
+    <div class="pilar-head">
+      <span class="roman">I</span>
+      <a class="pilar-title" href="https://drive.google.com/drive/folders/10JZMqkFZe-VrOU7nB6tWjk6SmzDruu3A">Penguatan Tata Laksana</a>
+      <a class="go-folder" href="https://drive.google.com/drive/folders/10JZMqkFZe-VrOU7nB6tWjk6SmzDruu3A">Buka folder utama →</a>
+    </div>
+    <div class="sub-list">
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1utCiG5DgxZpIyO4tCfckQQ-4EGwIO_5H">
+        <div class="sub-no">1.1</div>
+        <div class="sub-title">Perdes/Keputusan Kepala Desa/SOP tentang perencanaan, pelaksanaan, penatausahaan, dan pertanggungjawaban APBDes</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1wqJISWhUTnAO6yJP4LL1Wfs0f_MpQoSO">
+        <div class="sub-no">1.2</div>
+        <div class="sub-title">Perdes/Keputusan Kepala Desa/SOP Mekanisme Pengawasan dan Evaluasi Kinerja Perangkat Desa</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1GP8HigPpeC4IBy5D8BEwHhusnUUO5OAK">
+        <div class="sub-no">1.3</div>
+        <div class="sub-title">Perdes/Keputusan Kepala Desa/SOP Pengendalian Penerimaan Hadiah, Suap, dan Konflik Kepentingan</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1UkgvPBHWGuDel7wfWMVjxKj1iAqzARss">
+        <div class="sub-no">1.4</div>
+        <div class="sub-title">Perjanjian Kerjasama antara Pelaksana Kegiatan Anggaran dengan Pihak Penyedia, telah melalui Proses Pengadaan Barang/Jasa di Desa</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1UoJZd-0a4b2JZtRk13LDy7gmaAJ2JRcj">
+        <div class="sub-no">1.5</div>
+        <div class="sub-title">Perdes/Keputusan Kepala Desa/SOP Pakta Integritas dan Sejenisnya</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PILAR II -->
+  <section class="pilar" id="pilar-2">
+    <div class="pilar-head">
+      <span class="roman">II</span>
+      <a class="pilar-title" href="https://drive.google.com/drive/folders/1MkgLeM4JL63Tj9W_SOWySstOIuW8OHhc">Penguatan Pengawasan</a>
+      <a class="go-folder" href="https://drive.google.com/drive/folders/1MkgLeM4JL63Tj9W_SOWySstOIuW8OHhc">Buka folder utama →</a>
+    </div>
+    <div class="sub-list">
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1Te4i921DgPi4X7pLuWJO2QyH2AbFAwSQ">
+        <div class="sub-no">2.1</div>
+        <div class="sub-title">Kegiatan Pengawasan dan Evaluasi Kinerja Perangkat Desa</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1DedhmHKIPuuTbDkOLa6u4_HqsRmjjUdF">
+        <div class="sub-no">2.2</div>
+        <div class="sub-title">Tindak Lanjut Hasil Pembinaan, Petunjuk, Arahan, Pengawasan dan Pemeriksaan dari Pemerintah Pusat/Daerah</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1kF6hRg7gcE7z4BUWkwEC0o_aBs9ARfCk">
+        <div class="sub-no">2.3</div>
+        <div class="sub-title">Tidak Adanya Aparatur Desa dalam 3 Tahun Terakhir yang Terjerat Tindak Korupsi</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PILAR III -->
+  <section class="pilar" id="pilar-3">
+    <div class="pilar-head">
+      <span class="roman">III</span>
+      <a class="pilar-title" href="https://drive.google.com/drive/folders/1qzvvnvdsxzDi-6wCqeQUScxf4o4NF-9r">Penguatan Kualitas Pelayanan Publik</a>
+      <a class="go-folder" href="https://drive.google.com/drive/folders/1qzvvnvdsxzDi-6wCqeQUScxf4o4NF-9r">Buka folder utama →</a>
+    </div>
+    <div class="sub-list">
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1jzQyOE7e8MUWEB2xI4QjB5Rry_PC2tky">
+        <div class="sub-no">3.1</div>
+        <div class="sub-title">Layanan Pengaduan bagi Masyarakat</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1t6ZHgbiAGQ7z7QKJS2JUNDpYBa802IAf">
+        <div class="sub-no">3.2</div>
+        <div class="sub-title">Survei Kepuasan Masyarakat terhadap Layanan Pemerintah Desa</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1EqMmuMMQwYOh06pFZw0YfR1rvyhCZ9B3">
+        <div class="sub-no">3.3</div>
+        <div class="sub-title">Keterbukaan dan Akses Masyarakat Desa Terhadap Informasi Standar Pelayanan Minimal</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1qsOZJY3Mmsy5xVHVwHG75Jm6gwNHxZ4l">
+        <div class="sub-no">3.4</div>
+        <div class="sub-title">Media Informasi APBDes di Balai Desa dan/atau Tempat Lain yang Mudah Diakses Masyarakat</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1EiMNiZ_o8m7L3YBy31UFikNoA2w9Iy1F">
+        <div class="sub-no">3.5</div>
+        <div class="sub-title">Adanya Maklumat Pelayanan</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PILAR IV -->
+  <section class="pilar" id="pilar-4">
+    <div class="pilar-head">
+      <span class="roman">IV</span>
+      <a class="pilar-title" href="https://drive.google.com/drive/folders/10YuAYbuI6fd3zGqD0wbTBXJrHsZ0Pqkt">Penguatan Partisipasi Masyarakat</a>
+      <a class="go-folder" href="https://drive.google.com/drive/folders/10YuAYbuI6fd3zGqD0wbTBXJrHsZ0Pqkt">Buka folder utama →</a>
+    </div>
+    <div class="sub-list">
+      <a class="sub-row" href="https://drive.google.com/drive/folders/129jFgaJ0Zzc7YHhwDv5gqSQOnUpJLirY">
+        <div class="sub-no">4.1</div>
+        <div class="sub-title">Adanya Partisipasi dan Keterlibatan Masyarakat dalam Penyusunan RKP Desa</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1LRqeRmVu50xfsLC1mfxpXjmu6RbUi1_Z">
+        <div class="sub-no">4.2</div>
+        <div class="sub-title">Adanya Kesadaran Masyarakat dalam Mencegah Terjadinya Praktik Gratifikasi, Suap, dan Konflik Kepentingan</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/10PB3OjLG-gsF_Ozkaj9QDfNTodi-DVdc">
+        <div class="sub-no">4.3</div>
+        <div class="sub-title">Adanya Keterlibatan Lembaga Kemasyarakatan dalam Pelaksanaan Pembangunan Desa</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PILAR V -->
+  <section class="pilar" id="pilar-5">
+    <div class="pilar-head">
+      <span class="roman">V</span>
+      <a class="pilar-title" href="https://drive.google.com/drive/folders/1EH3EmJ_S-yKSFz3TjwGWiGGZBH8MR8uv">Kearifan Lokal</a>
+      <a class="go-folder" href="https://drive.google.com/drive/folders/1EH3EmJ_S-yKSFz3TjwGWiGGZBH8MR8uv">Buka folder utama →</a>
+    </div>
+    <div class="sub-list">
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1UE30aojyoIdDYgVl85_ka_CFVHbUwQu9">
+        <div class="sub-no">5.1</div>
+        <div class="sub-title">Adanya Budaya Lokal/Hukum Adat yang Mendorong Upaya Pencegahan Tindak Pidana Korupsi</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+      <a class="sub-row" href="https://drive.google.com/drive/folders/1ZPCxumV_gadz6_69Np7XsDupUlZgxZE-">
+        <div class="sub-no">5.2</div>
+        <div class="sub-title">Adanya Tokoh Masyarakat, Agama, Adat, Pemuda, dan Kaum Perempuan yang Mendorong Upaya Pencegahan Tindak Pidana Korupsi</div>
+        <div class="sub-go">Buka →</div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; width:100%;">
+    <span>© 2026 Pemerintah Desa Sumber Agung</span>
+    <span>Program Desa Anti Korupsi</span>
+  </div>
+</footer>
+
+</body>
+</html>
