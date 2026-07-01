@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desa Sumber Agung — Kecamatan Rimbo Ilir, Kabupaten Tebo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7EE;
+    --surface:#FFFFFF;
+    --ink:#1B2420;
+    --ink-soft:#57604F;
+    --green-deep:#0F3D2E;
+    --green-mid:#1F6844;
+    --green-line:#D9E6DD;
+    --gold:#E8A33D;
+    --gold-deep:#B87A1F;
+    --rule:#E4DECB;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream); color:var(--ink);
+    font-family:'Plus Jakarta Sans', sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  a{color:inherit;}
+
+  .topbar{
+    position:sticky; top:0; z-index:30;
+    background:rgba(251,247,238,.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--rule);
+  }
+  .topbar-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px; max-width:1080px; margin:0 auto; flex-wrap:wrap; gap:10px;
+  }
+  .brand{display:flex; align-items:center; gap:9px; font-weight:700; font-size:14.5px;}
+  .brand .sq{width:10px;height:10px; background:var(--green-deep); border-radius:2px;}
+  .topbar nav{display:flex; gap:22px;}
+  .topbar nav a{font-size:13px; font-weight:600; text-decoration:none; color:var(--ink-soft);}
+  .topbar nav a:hover{color:var(--green-deep);}
+
+  .hero{padding:56px 0 20px;}
+  .signboard{
+    background:var(--green-deep); border-radius:20px; padding:46px 40px 40px;
+    position:relative; overflow:hidden; box-shadow:0 24px 50px -28px rgba(15,61,46,.65);
+  }
+  .signboard::before{
+    content:""; position:absolute; inset:10px;
+    border:1.5px solid rgba(255,255,255,.18); border-radius:12px; pointer-events:none;
+  }
+  .signboard .kicker{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:#BFE0CC; margin-bottom:18px;
+  }
+  .signboard h1{
+    font-family:'Archivo', sans-serif; font-weight:900; font-size:clamp(42px, 7vw, 78px);
+    letter-spacing:-.01em; line-height:.98; color:#FFFFFF; text-transform:uppercase;
+  }
+  .signboard .loc{margin-top:18px; font-size:15.5px; color:#D8ECDD; font-weight:500;}
+  .signboard .tagline{margin-top:6px; font-weight:600; font-size:14px; color:var(--gold);}
+  .code-plate{
+    margin-top:30px; display:inline-flex; gap:22px; flex-wrap:wrap;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16);
+    border-radius:10px; padding:12px 18px;
+  }
+  .code-plate div{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#CFE8D7;}
+  .code-plate div b{display:block; color:#fff; font-size:13px; margin-top:2px; font-weight:600;}
+
+  .video-block{margin-top:22px;}
+  .video-block .label{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--ink-soft); margin-bottom:10px;
+  }
+  .ratio{
+    position:relative; width:100%; padding-top:56.25%;
+    background:#08201780; border-radius:16px; overflow:hidden; border:1px solid var(--rule);
+  }
+  .ratio iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+
+  section{padding:56px 0;}
+  .section-head{margin-bottom:26px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--green-mid); font-weight:600; margin-bottom:10px;
+  }
+  .section-head h2{font-family:'Archivo', sans-serif; font-weight:800; font-size:30px; color:var(--green-deep);}
+  .section-head p{color:var(--ink-soft); font-size:15px; max-width:60ch; margin-top:8px;}
+
+  /* ===== Submenu tabs ===== */
+  .tabbar{
+    display:flex; gap:6px; padding:6px; background:var(--surface);
+    border:1px solid var(--rule); border-radius:14px; margin-bottom:30px;
+    flex-wrap:wrap;
+  }
+  .tab-btn{
+    flex:1; min-width:150px; text-align:center;
+    padding:12px 16px; border:none; background:transparent; cursor:pointer;
+    font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px;
+    color:var(--ink-soft); border-radius:9px; transition:.15s ease;
+  }
+  .tab-btn .count{
+    display:block; font-family:'IBM Plex Mono', monospace; font-weight:500;
+    font-size:11px; margin-top:3px; opacity:.75;
+  }
+  .tab-btn.active{background:var(--green-deep); color:#fff;}
+  .tab-btn:not(.active):hover{background:var(--green-line); color:var(--green-deep);}
+
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+  .panel-desc{color:var(--ink-soft); font-size:14px; margin-bottom:22px; max-width:64ch;}
+
+  /* Kemasyarakatan: card grid */
+  .card-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:14px;
+  }
+  .item-card{
+    background:var(--surface); border:1px solid var(--rule); border-radius:14px;
+    padding:18px; display:flex; gap:14px; align-items:flex-start; text-decoration:none;
+    transition:.15s ease;
+  }
+  .item-card:hover{border-color:var(--gold); transform:translateY(-1px);}
+  .item-num{
+    flex:0 0 auto; width:36px; height:36px; border-radius:50%;
+    background:var(--green-line); color:var(--green-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace; font-weight:700; font-size:13px;
+  }
+  .item-title{font-size:13.5px; font-weight:600; color:var(--ink); line-height:1.4;}
+  .item-arrow{margin-top:6px; font-size:12px; color:var(--gold-deep); font-weight:600;}
+
+  /* Kewilayahan: doc list */
+  .doc-list{display:flex; flex-direction:column; gap:10px;}
+  .doc-row{
+    display:flex; align-items:center; gap:14px;
+    background:var(--surface); border:1px solid var(--rule); border-radius:12px;
+    padding:16px 18px; text-decoration:none; transition:.15s ease;
+  }
+  .doc-row:hover{border-color:var(--gold);}
+  .doc-icon{
+    flex:0 0 auto; width:38px; height:38px; border-radius:9px;
+    background:var(--green-deep); color:#fff; display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace; font-weight:700; font-size:11px;
+  }
+  .doc-title{font-size:14.5px; font-weight:600; color:var(--ink); flex:1;}
+  .doc-go{font-size:12.5px; color:var(--gold-deep); font-weight:600; white-space:nowrap;}
+
+  /* Pemerintahan: dense flat list */
+  .flat-list{border:1px solid var(--rule); border-radius:14px; overflow:hidden; background:var(--surface);}
+  .flat-row{
+    display:flex; align-items:center; gap:16px;
+    padding:13px 18px; text-decoration:none; color:var(--ink);
+    border-top:1px solid var(--rule);
+  }
+  .flat-row:first-child{border-top:none;}
+  .flat-row:hover{background:var(--cream);}
+  .flat-no{
+    flex:0 0 auto; width:28px; font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--green-mid); font-weight:700;
+  }
+  .flat-title{flex:1; font-size:14px; font-weight:500;}
+  .flat-arrow{font-size:12px; color:var(--gold-deep); font-weight:600; flex:0 0 auto;}
+
+  .contact-card{
+    background:var(--green-deep); border-radius:18px; padding:38px 34px; color:#fff;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px;
+  }
+  .contact-card h2{font-family:'Archivo', sans-serif; font-weight:800; font-size:24px; margin-bottom:10px;}
+  .contact-card p{color:#CFE8D7; font-size:14px; max-width:40ch;}
+  .contact-list{display:flex; flex-direction:column; gap:8px; font-size:14px;}
+  .contact-list b{color:var(--gold); font-weight:600; margin-right:6px;}
+
+  footer.site{
+    padding:30px 0 50px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#9AA394;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width:640px){
+    .signboard{padding:32px 22px 30px; border-radius:16px;}
+    .tabbar{flex-direction:column;}
+    .contact-card{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="sq"></span> Desa Sumber Agung</div>
+    <nav>
+      <a href="#berkas">Berkas Desa</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero" style="padding-bottom:0;">
+    <div class="signboard">
+      <div class="kicker">Selamat Datang di</div>
+      <h1>Sumber Agung</h1>
+      <div class="loc">Kecamatan Rimbo Ilir · Kabupaten Tebo · Provinsi Jambi</div>
+      <div class="tagline">"Desa Maju Jalan Berbasis Teknologi"</div>
+      <div class="code-plate">
+        <div>Kode Wilayah<b>15.09.08.2006</b></div>
+        <div>Kode Pos<b>37552</b></div>
+      </div>
+    </div>
+
+    <div class="video-block">
+      <div class="label">Video Profil Desa</div>
+      <div class="ratio">
+        <iframe src="https://drive.google.com/file/d/1PPht9cgdKrzvryTsOoXVwMwlEEdtX1Wt/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="berkas">
+    <div class="section-head">
+      <div class="eyebrow">Berkas &amp; Dokumentasi Desa</div>
+      <h2>Data Kemasyarakatan, Kewilayahan &amp; Pemerintahan</h2>
+      <p>Kumpulan data dan dokumen resmi Desa Sumber Agung, dikelompokkan sesuai tiga kategori indikator desa.</p>
+    </div>
+
+    <div class="tabbar">
+      <button class="tab-btn active" data-tab="kemasyarakatan">Kemasyarakatan<span class="count">12 folder</span></button>
+      <button class="tab-btn" data-tab="kewilayahan">Kewilayahan<span class="count">5 folder</span></button>
+      <button class="tab-btn" data-tab="pemerintahan">Pemerintahan<span class="count">29 folder</span></button>
+    </div>
+
+    <!-- KEMASYARAKATAN -->
+    <div class="tab-panel active" id="panel-kemasyarakatan">
+      <p class="panel-desc">Data dan dokumentasi kegiatan sosial kemasyarakatan warga Desa Sumber Agung.</p>
+      <div class="card-grid" id="grid-kemasyarakatan"></div>
+    </div>
+
+    <!-- KEWILAYAHAN -->
+    <div class="tab-panel" id="panel-kewilayahan">
+      <p class="panel-desc">Dokumen penataan dan pengelolaan wilayah desa.</p>
+      <div class="doc-list" id="list-kewilayahan"></div>
+    </div>
+
+    <!-- PEMERINTAHAN -->
+    <div class="tab-panel" id="panel-pemerintahan">
+      <p class="panel-desc">Seluruh dokumen tata kelola pemerintahan desa — klik salah satu untuk membuka folder aslinya di Google Drive.</p>
+      <div class="flat-list" id="list-pemerintahan"></div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site">
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; width:100%;">
+    <span>© 2026 Pemerintah Desa Sumber Agung</span>
+    <span>Kecamatan Rimbo Ilir, Kabupaten Tebo, Provinsi Jambi</span>
+  </div>
+</footer>
+
+<script>
+/* ====== DATA — sumber: Google Drive folder "Lomba Desa 2026" ====== */
+const KEMASYARAKATAN = [
+  ["1","Data dan dokumentasi gotong royong","1GBpFDiGX0HOh5H3V41pfqo63IuCfDVa6"],
+  ["2","Data dan dokumentasi kelembagaan masyarakat","13JuzeYLXmGoJaKQld9gRUi3iU7F-ro3n"],
+  ["3","Data dan dokumentasi kegiatan PKK","1cxbr9I3pLOT6T8e8E1G43xRIX8R1RqFS"],
+  ["4","Data dan dokumentasi kegiatan Posyandu","18BiAr5dtTGdiXqx5g7Z2iXFRMWJWfjl5"],
+  ["5","Data persalinan ibu dan bayi 2024–2025 serta produk hukum perlindungan ibu dan anak","1UY7MPsqOWK20WpvZ9VR23m0MYXlg9P4J"],
+  ["6","Data dan dokumentasi kesehatan masyarakat","1lrFJqCb_pNafnkJOuAaVvkKC0zQ79aIJ"],
+  ["7","Data dan dokumentasi kegiatan RT","1IuMCZ46Uw-94g-D7SBQiWALoLBoP5ihn"],
+  ["8","Laporan kegiatan, program, kejadian, keamanan dan ketertiban 2024–2025","16od52SbrWzQ0zMs2s4hyWceGDIOxeCxa"],
+  ["9","Data dan dokumentasi tingkat pendidikan","1L88SpH1VKw1tN5Ck-X96RF-dMtuZovTq"],
+  ["10","Data dan dokumentasi pengangguran dan penanggulangan kemiskinan 2024–2025","1n6XpifP9JoN_mOplr13qvOtVOXa-ASAn"],
+  ["11","Data dan dokumentasi lembaga ekonomi","1n80YeltZvoQeMKFaPTf7nqXwdU_DbdgR"],
+  ["12","Data dan dokumentasi peningkatan kapasitas masyarakat desa","1LchdNBTXtZWXRGPj7PpFrFv9fBqLPCF3"],
+];
+
+const KEWILAYAHAN = [
+  ["1","Peta Administrasi Desa dan Peta Batas Desa","1mv-ja5i0MPvL1e9BhVEs9a5vCSO6RxBX"],
+  ["2","Perbup yang mengatur tentang batas desa","1XbSFfzO8IghNbCP4X_HNr-r39x85K6zC"],
+  ["3","Kesiapan tanggap bencana, simulasi, daerah evakuasi & dokumen P3MD","199wlPfeA5PKnWTRrH96HgLOnapqNFnp1"],
+  ["4","Data dan dokumentasi investasi masuk desa","19MfFdpmPmRr03G47urkdW8H_gpKpw2qC"],
+  ["5","Data dan dokumentasi program pelestarian lingkungan (TPSS)","19Qp7LNOqjxOxeok4iF-A83w0eC_Hu0fr"],
+];
+
+const PEMERINTAHAN = [
+  ["1","SK Penetapan Juara Lomba Desa","15oeCfsD38aT1dQR-AlLo4ePpERFy23Bg"],
+  ["06","Data dan dokumentasi prestasi desa 5 tahun terakhir","1kgg5HgLVHkUMBkckqPio5vDW0TcWW6vc"],
+  ["07","Laporan Profil Desa tahun 2024 dan 2025","13MRs5qfw0_x_WGQI0leLsk3dlCaXjuxs"],
+  ["08","SK Kepala Desa tentang Pokja Profil Desa","1stOCoPLa-nPgCzev-S4pc8sRDmViqaKG"],
+  ["09","Perdes tentang RPJMDes","1NlXS4gAOzsxtMCLPEi-xakZ6LYryRA-k"],
+  ["10","Perdes tentang RKPDes","1lNRBERCVvvDlVPqyhC7GnnEmI7QKcCq9"],
+  ["11","Dokumen APBDesa tahun 2024 dan 2025","146MLhszTGLXfhT7LXlL7SSQIWB2-rxnr"],
+  ["12","SK Kepala Desa tentang PPKD 2024 dan 2025","1nt7GnXjlhu6Arj9uFmz26jRjJG48lUKe"],
+  ["13","Dokumen pelaksanaan Musdes","1Cp52Ngg9XOji6lRhSv9_xlLjFSiYRuJj"],
+  ["14","Dokumen pelaksanaan Musrenbangdes","1PzujwUU4yIRz8hUQRxBdcv6OzY5-WVwX"],
+  ["15","Dokumen BPD 2 tahun terakhir","1IZvG7oVZMbOhLpbFwmNx5gczyo10gHlY"],
+  ["16","SOTK Desa","1RN-iv2GTbiwAClueFfve8vYisjMk-oTU"],
+  ["17","Perbup SOTK Desa","1z1uKc3YQ2HCbHY6RZ-mHAJBsxyEUfkQn"],
+  ["18","Pengembangan kapasitas aparatur pemerintah desa","1cir0lYnB2MY81pH9rVrjzCKrKhBK0Mka"],
+  ["19","Buku Administrasi Desa","1Or7KdyaibiCF98R580bH6IfZhbAiLPia"],
+  ["20","Himpunan Produk Hukum Desa","1dksFRWiULyxB_i0_nxWCn2Xc2OwYb7oG"],
+  ["21","Monografi Desa","1LsVaQFDXOfIlQl1dacHOiOsot1bgr_S7"],
+  ["22","Dokumen BUMDes","1wXunqvQoR0H5XEY0sUM0lXKwVNdefKXr"],
+  ["23","Inventarisasi Aset Desa","13ZwerJMnnmc0G0p08yIwWh_N-C5E5SMu"],
+  ["24","Teknologi informasi yang dipakai desa","11foK8txMNkoo5EY2LCz7zZ9sngi9p1Qq"],
+  ["25","Dokumen kerjasama desa","1tgy87ZaBLWezrAMRZNt59PEq_iIpiy4I"],
+  ["26","LPPD tahun 2024 dan 2025","1ZUUd7mYPYOazHXP09EsEvLrUAEFW8ThG"],
+  ["27","Sarana dan prasarana pendukung kinerja pemerintah desa","1HUaUz-8PhnBpNRgz0WpsvcADUev2O1_W"],
+  ["28","Pelestarian adat dan budaya 2024–2025","1_ZetGQkJJ3YSRTG9O2LTNidEgAbusQBh"],
+  ["29","Program pemberdayaan masyarakat 2024–2025","1i1dw4I9BtP0oU8N1fEu8zAdln5PaTu34"],
+  ["30","Dokumen SPM Desa","1CBqiPEHJCCS3wRcemMqbjk1A_RK-3sqr"],
+  ["31","Kotak, media, layanan pengaduan masyarakat","1t97z-zf8NtgrlvgBSdIF59Fxpew0p1Tv"],
+  ["32","Screenshot penggunaan Siskeudes / pengelolaan keuangan","19PYNL8O1mwczn9uDOI0DoaBB0COFM2J7"],
+  ["33","Program pembinaan pasca lomba dari provinsi dan kabupaten","1d0YsnPLCIzOtDrTqVQODCYy4-QS_rvty"],
+];
+
+const driveUrl = id => `https://drive.google.com/drive/folders/${id}`;
+
+document.getElementById('grid-kemasyarakatan').innerHTML = KEMASYARAKATAN.map(([no,title,id]) => `
+  <a class="item-card" href="${driveUrl(id)}" target="_blank" rel="noopener">
+    <div class="item-num">${no}</div>
+    <div>
+      <div class="item-title">${title}</div>
+      <div class="item-arrow">Buka folder →</div>
+    </div>
+  </a>`).join('');
+
+document.getElementById('list-kewilayahan').innerHTML = KEWILAYAHAN.map(([no,title,id]) => `
+  <a class="doc-row" href="${driveUrl(id)}" target="_blank" rel="noopener">
+    <div class="doc-icon">${no}</div>
+    <div class="doc-title">${title}</div>
+    <div class="doc-go">Buka →</div>
+  </a>`).join('');
+
+document.getElementById('list-pemerintahan').innerHTML = PEMERINTAHAN.map(([no,title,id]) => `
+  <a class="flat-row" href="${driveUrl(id)}" target="_blank" rel="noopener">
+    <div class="flat-no">${no}</div>
+    <div class="flat-title">${title}</div>
+    <div class="flat-arrow">Buka →</div>
+  </a>`).join('');
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
