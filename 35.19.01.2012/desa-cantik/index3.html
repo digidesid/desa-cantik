@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statistik UMKM Desa · Dashboard Desa Cantik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F4FAF6;
+    --surface: #FFFFFF;
+    --forest-950: #0B2117;
+    --forest-800: #133A28;
+    --forest-700: #1B4332;
+    --forest-600: #235C41;
+    --forest-500: #2D6A4F;
+    --forest-400: #3E8763;
+    --mint-400: #52A675;
+    --mint-300: #74C69D;
+    --mint-200: #95D5B2;
+    --mint-100: #B7E4C7;
+    --mint-50:  #DDF2E4;
+    --ink: #12261B;
+    --muted: #5B7267;
+    --hairline: #D2E6DA;
+    --shadow: 0 1px 2px rgba(11,33,23,0.04), 0 6px 20px rgba(11,33,23,0.06);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3, .num-display{
+    font-family: 'Fraunces', Georgia, serif;
+  }
+
+  .mono{ font-family: 'IBM Plex Mono', monospace; }
+
+  a{ color: inherit; }
+
+  /* ===== HERO ===== */
+  .hero{
+    position: relative;
+    background: radial-gradient(120% 140% at 15% 0%, var(--forest-600) 0%, var(--forest-800) 48%, var(--forest-950) 100%);
+    color: var(--mint-50);
+    overflow: hidden;
+    padding: 4.5rem 6vw 3.5rem;
+  }
+
+  .hero-inner{
+    position: relative;
+    z-index: 2;
+    max-width: 980px;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    font-size: .75rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--mint-200);
+    font-weight: 600;
+    margin-bottom: 1.6rem;
+  }
+  .eyebrow::before{
+    content:"";
+    width: 22px; height: 1px;
+    background: var(--mint-300);
+    display:inline-block;
+  }
+
+  .hero h1{
+    font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+    font-weight: 600;
+    line-height: 1.08;
+    margin: 0 0 1rem;
+    max-width: 15ch;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--mint-200);
+    font-weight: 500;
+  }
+
+  .hero p.lede{
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: rgba(221,242,228,0.82);
+    max-width: 56ch;
+    margin: 0 0 2.6rem;
+  }
+
+  .hero-stats{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 2.6rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(183,228,199,0.22);
+  }
+  .hero-stat .num{
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 600;
+    color: #fff;
+    display:block;
+  }
+  .hero-stat .lbl{
+    font-size: .8rem;
+    color: var(--mint-200);
+    margin-top: .3rem;
+  }
+
+  /* rice-stalk decoration */
+  .stalks{
+    position:absolute;
+    right: -2%;
+    bottom: -6%;
+    width: min(46vw, 560px);
+    opacity: .9;
+    z-index:1;
+    pointer-events:none;
+  }
+  .stalks path{ transform-origin: bottom; }
+
+  /* divider */
+  .grain-divider{
+    background: var(--forest-950);
+    line-height: 0;
+  }
+  .grain-divider svg{ width:100%; height:28px; display:block; }
+
+  /* ===== LAYOUT ===== */
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 6vw; }
+  section.block{ padding: 3.2rem 0; }
+
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
+  }
+  .section-head h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--forest-800);
+    margin: 0;
+  }
+  .section-head .section-note{
+    font-size: .85rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ===== KPI CARDS ===== */
+  .kpi-grid{
+    display:grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+  }
+  .kpi-card{
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    padding: 1.3rem 1.2rem;
+    box-shadow: var(--shadow);
+  }
+  .kpi-card .kpi-icon{
+    width: 30px; height:30px;
+    margin-bottom: .8rem;
+    color: var(--forest-500);
+  }
+  .kpi-card .kpi-num{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--forest-800);
+    line-height:1.1;
+  }
+  .kpi-card .kpi-lbl{
+    font-size: .78rem;
+    color: var(--muted);
+    margin-top: .45rem;
+    line-height:1.4;
+  }
+
+  /* ===== CHART CARDS ===== */
+  .chart-row{
+    display:grid;
+    gap: 1.4rem;
+    margin-bottom: 1.4rem;
+  }
+  .chart-row.cols-2{ grid-template-columns: 1fr 1fr; }
+  .chart-row.cols-2-1{ grid-template-columns: 1.6fr 1fr; }
+  .chart-row.cols-1{ grid-template-columns: 1fr; }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 16px;
+    padding: 1.5rem 1.6rem 1.3rem;
+    box-shadow: var(--shadow);
+    display:flex;
+    flex-direction: column;
+  }
+  .card .card-title{
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--forest-500);
+    margin: 0 0 .2rem;
+  }
+  .card h3{
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--forest-800);
+    margin: 0 0 1rem;
+  }
+  .card .chart-holder{
+    position: relative;
+    flex: 1;
+    min-height: 230px;
+  }
+  .card .chart-holder canvas{
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .card .insight{
+    margin-top: 1rem;
+    padding-top: .9rem;
+    border-top: 1px dashed var(--hairline);
+    font-size: .84rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .card .insight strong{ color: var(--forest-700); }
+
+  .legend-row{
+    display:flex;
+    gap: 1.4rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .legend-item{
+    display:flex; align-items:center; gap:.5rem;
+    font-size: .82rem; color: var(--ink);
+  }
+  .legend-dot{ width:10px; height:10px; border-radius:3px; display:inline-block; }
+
+  .big-figure{
+    display:flex;
+    align-items:baseline;
+    gap: .6rem;
+    margin: .2rem 0 1rem;
+  }
+  .big-figure .value{
+    font-family:'Fraunces', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--forest-700);
+  }
+  .big-figure .unit{
+    font-size: .95rem;
+    color: var(--muted);
+  }
+
+  footer{
+    background: var(--forest-950);
+    color: var(--mint-100);
+    padding: 2.2rem 6vw;
+    font-size: .82rem;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .6rem;
+  }
+  footer a{ color: var(--mint-200); text-decoration: underline; }
+
+  @media (max-width: 880px){
+    .kpi-grid{ grid-template-columns: repeat(2, 1fr); }
+    .chart-row.cols-2, .chart-row.cols-2-1{ grid-template-columns: 1fr; }
+    .hero{ padding: 3.2rem 6vw 2.6rem; }
+    .stalks{ display:none; }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--mint-300);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="stalks" viewBox="0 0 400 460" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#95D5B2" stroke-width="2.2" stroke-linecap="round" opacity="0.55">
+      <path d="M120 460 C 110 320, 150 200, 100 60"/>
+      <path d="M180 460 C 190 300, 150 210, 190 40"/>
+      <path d="M250 460 C 235 330, 270 230, 230 80"/>
+    </g>
+    <g fill="#B7E4C7" opacity="0.75">
+      <ellipse cx="100" cy="58" rx="7" ry="16" transform="rotate(-18 100 58)"/>
+      <ellipse cx="90" cy="82" rx="7" ry="16" transform="rotate(-40 90 82)"/>
+      <ellipse cx="112" cy="86" rx="7" ry="16" transform="rotate(10 112 86)"/>
+      <ellipse cx="190" cy="38" rx="7" ry="16" transform="rotate(-8 190 38)"/>
+      <ellipse cx="178" cy="62" rx="7" ry="16" transform="rotate(-34 178 62)"/>
+      <ellipse cx="202" cy="66" rx="7" ry="16" transform="rotate(18 202 66)"/>
+      <ellipse cx="230" cy="78" rx="7" ry="16" transform="rotate(-14 230 78)"/>
+      <ellipse cx="218" cy="102" rx="7" ry="16" transform="rotate(-38 218 102)"/>
+      <ellipse cx="244" cy="104" rx="7" ry="16" transform="rotate(12 244 104)"/>
+    </g>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="eyebrow">Program Desa Cantik &middot; Statistik UMKM</div>
+    <h1>Potret ekonomi warga, <em>dusun demi dusun.</em></h1>
+    <p class="lede">Rangkuman pendataan pelaku Usaha Mikro, Kecil dan Menengah (UMKM) di empat dusun &mdash; Balerejo, Selopuro, Nglongko, dan Binowo &mdash; mencakup jenis usaha, legalitas, pemasaran digital, dan omzet bulanan.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num mono">389</span>
+        <span class="lbl">Pelaku UMKM tercatat</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num mono">Rp 1,10 M</span>
+        <span class="lbl">Total omzet / bulan</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num mono">4</span>
+        <span class="lbl">Dusun tercakup</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num mono">12</span>
+        <span class="lbl">Kategori bidang usaha</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="grain-divider">
+  <svg viewBox="0 0 1200 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M0 20 Q 20 4, 40 20 T 80 20 T 120 20 T 160 20 T 200 20 T 240 20 T 280 20 T 320 20 T 360 20 T 400 20 T 440 20 T 480 20 T 520 20 T 560 20 T 600 20 T 640 20 T 680 20 T 720 20 T 760 20 T 800 20 T 840 20 T 880 20 T 920 20 T 960 20 T 1000 20 T 1040 20 T 1080 20 T 1120 20 T 1160 20 T 1200 20"
+      stroke="#52A675" stroke-width="1.4" fill="none" opacity="0.55"/>
+  </svg>
+</div>
+
+<main class="wrap">
+
+  <!-- KPI SECTION -->
+  <section class="block" id="ringkasan">
+    <div class="section-head">
+      <h2>Ringkasan angka kunci</h2>
+      <div class="section-note">Berdasarkan 389 pelaku usaha yang terdata</div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+        <div class="kpi-num">389</div>
+        <div class="kpi-lbl">Total pelaku UMKM</div>
+      </div>
+      <div class="kpi-card">
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        <div class="kpi-num">Rp 1.095 Jt</div>
+        <div class="kpi-lbl">Total omzet seluruh usaha / bulan</div>
+      </div>
+      <div class="kpi-card">
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18M7 15l4-5 3 3 5-7"/></svg>
+        <div class="kpi-num">Rp 2,82 Jt</div>
+        <div class="kpi-lbl">Rata-rata omzet per pelaku</div>
+      </div>
+      <div class="kpi-card">
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 15a4 4 0 100-8 4 4 0 000 8zM5.5 21a6.5 6.5 0 0113 0"/></svg>
+        <div class="kpi-num">20,8%</div>
+        <div class="kpi-lbl">Sudah punya izin / sertifikasi (81 usaha)</div>
+      </div>
+      <div class="kpi-card">
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+        <div class="kpi-num">32,9%</div>
+        <div class="kpi-lbl">Aktif memakai media sosial (128 usaha)</div>
+      </div>
+      <div class="kpi-card">
+        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+        <div class="kpi-num">7,5%</div>
+        <div class="kpi-lbl">Pernah ikut pelatihan usaha (29 usaha)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUSUN SECTION -->
+  <section class="block" id="dusun">
+    <div class="section-head">
+      <h2>Sebaran per dusun</h2>
+      <div class="section-note">Balerejo menyumbang hampir separuh pelaku UMKM</div>
+    </div>
+    <div class="chart-row cols-2">
+      <div class="card">
+        <p class="card-title">Jumlah pelaku usaha</p>
+        <h3>UMKM per Dusun</h3>
+        <div class="chart-holder"><canvas id="chartDusunJumlah"></canvas></div>
+        <div class="insight">Dusun <strong>Balerejo</strong> memiliki jumlah UMKM terbanyak (174 usaha, 44,7%), diikuti Selopuro (85), Nglongko (70), dan Binowo (60).</div>
+      </div>
+      <div class="card">
+        <p class="card-title">Nilai ekonomi</p>
+        <h3>Total Omzet per Dusun / Bulan</h3>
+        <div class="chart-holder"><canvas id="chartDusunOmzet"></canvas></div>
+        <div class="insight">Sejalan dengan jumlah usahanya, <strong>Balerejo</strong> juga menyumbang omzet gabungan terbesar, sekitar Rp 695 juta per bulan.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KATEGORI SECTION -->
+  <section class="block" id="kategori">
+    <div class="section-head">
+      <h2>Bidang usaha</h2>
+      <div class="section-note">Diklasifikasikan mengikuti kategori KBLI</div>
+    </div>
+    <div class="chart-row cols-1">
+      <div class="card">
+        <p class="card-title">12 kategori usaha</p>
+        <h3>Distribusi Kategori Usaha</h3>
+        <div class="chart-holder" style="min-height:340px;"><canvas id="chartKategori"></canvas></div>
+        <div class="insight"><strong>Perdagangan &amp; Reparasi</strong> (149 usaha, 38,3%) dan <strong>Akomodasi &amp; Makan Minum</strong> (132 usaha, 33,9%) mendominasi &mdash; bersama keduanya mencakup 72% dari seluruh pelaku UMKM, mencerminkan ekonomi desa yang bertumpu pada warung, toko kelontong, dan kuliner rumahan.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OMZET SECTION -->
+  <section class="block" id="omzet">
+    <div class="section-head">
+      <h2>Skala omzet bulanan</h2>
+      <div class="section-note">Rentang Rp 75 ribu &ndash; Rp 150 juta per bulan</div>
+    </div>
+    <div class="chart-row cols-2-1">
+      <div class="card">
+        <p class="card-title">Sebaran nilai omzet</p>
+        <h3>Jumlah UMKM per Rentang Omzet</h3>
+        <div class="chart-holder"><canvas id="chartOmzetBin"></canvas></div>
+        <div class="insight">Mayoritas usaha masih berskala mikro: <strong>244 usaha (62,7%)</strong> beromzet di bawah Rp 1 juta per bulan, sementara hanya 13 usaha (3,3%) beromzet di atas Rp 10 juta.</div>
+      </div>
+      <div class="card">
+        <p class="card-title">Ukuran tendensi</p>
+        <h3>Median &amp; Rata-rata</h3>
+        <div class="big-figure"><span class="value mono">Rp 1 Jt</span><span class="unit">median / bulan</span></div>
+        <div class="big-figure"><span class="value mono">Rp 2,82 Jt</span><span class="unit">rata-rata / bulan</span></div>
+        <div class="insight">Rata-rata tertarik ke atas oleh segelintir usaha besar (omzet tertinggi Rp 150 juta), sedangkan median Rp 1 juta lebih mencerminkan kondisi UMKM pada umumnya.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USIA USAHA SECTION -->
+  <section class="block" id="usia">
+    <div class="section-head">
+      <h2>Usia usaha</h2>
+      <div class="section-note">Dari kolom Tahun Berdiri, dibersihkan dari format campuran</div>
+    </div>
+    <div class="chart-row cols-2-1">
+      <div class="card">
+        <p class="card-title">Lama usaha beroperasi</p>
+        <h3>Sebaran Usia Usaha</h3>
+        <div class="chart-holder"><canvas id="chartUsiaBin"></canvas></div>
+        <div class="insight">Usaha berusia <strong>11–20 tahun</strong> paling banyak (106 usaha), menandakan basis UMKM yang sudah cukup mapan, namun 63 usaha (16,2%) baru berdiri &le; 2 tahun terakhir.</div>
+      </div>
+      <div class="card">
+        <p class="card-title">Berdasarkan dekade berdiri</p>
+        <h3>Gelombang Pendirian Usaha</h3>
+        <div class="chart-holder"><canvas id="chartDekade"></canvas></div>
+        <div class="insight">Lonjakan terbesar pendirian usaha terjadi pada dekade <strong>2010-an dan 2020-an</strong>, sejalan dengan makin mudahnya membuka usaha mikro rumahan.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGALITAS SECTION -->
+  <section class="block" id="legalitas">
+    <div class="section-head">
+      <h2>Legalitas &amp; sertifikasi</h2>
+      <div class="section-note">NIB paling banyak dimiliki di antara yang berizin</div>
+    </div>
+    <div class="chart-row cols-2">
+      <div class="card">
+        <p class="card-title">Status kepemilikan izin</p>
+        <h3>Punya vs. Belum Punya Izin</h3>
+        <div class="chart-holder"><canvas id="chartIzinDonut"></canvas></div>
+        <div class="legend-row">
+          <span class="legend-item"><span class="legend-dot" style="background:#1B4332"></span>Punya izin/sertifikasi &mdash; 81</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#B7E4C7"></span>Belum sama sekali &mdash; 308</span>
+        </div>
+      </div>
+      <div class="card">
+        <p class="card-title">Rincian di antara yang berizin</p>
+        <h3>Jenis Dokumen yang Dimiliki</h3>
+        <div class="chart-holder"><canvas id="chartDokumen"></canvas></div>
+        <div class="insight">Dari 81 usaha yang berizin, <strong>NIB</strong> paling umum (74 usaha), disusul Sertifikat Halal (25) dan PIRT (13). Sebagian usaha memegang lebih dari satu dokumen sekaligus.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDSOS SECTION -->
+  <section class="block" id="medsos">
+    <div class="section-head">
+      <h2>Pemasaran digital</h2>
+      <div class="section-note">Facebook masih jadi kanal favorit</div>
+    </div>
+    <div class="chart-row cols-2">
+      <div class="card">
+        <p class="card-title">Status penggunaan</p>
+        <h3>Punya vs. Tidak Punya Akun Medsos</h3>
+        <div class="chart-holder"><canvas id="chartMedsosDonut"></canvas></div>
+        <div class="legend-row">
+          <span class="legend-item"><span class="legend-dot" style="background:#1B4332"></span>Punya akun &mdash; 128</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#B7E4C7"></span>Tidak punya &mdash; 261</span>
+        </div>
+      </div>
+      <div class="card">
+        <p class="card-title">Platform yang dipakai</p>
+        <h3>Sebaran Platform Media Sosial</h3>
+        <div class="chart-holder"><canvas id="chartPlatform"></canvas></div>
+        <div class="insight"><strong>Facebook</strong> dipakai 101 usaha, jauh di atas TikTok (46) dan Instagram (30). Banyak pelaku memakai lebih dari satu platform sekaligus.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PELATIHAN SECTION -->
+  <section class="block" id="pelatihan">
+    <div class="section-head">
+      <h2>Partisipasi pelatihan</h2>
+      <div class="section-note">Peluang besar untuk pendampingan lanjutan</div>
+    </div>
+    <div class="chart-row cols-2-1">
+      <div class="card">
+        <p class="card-title">Status keikutsertaan</p>
+        <h3>Pernah vs. Belum Pernah Ikut Pelatihan</h3>
+        <div class="chart-holder"><canvas id="chartPelatihanDonut"></canvas></div>
+      </div>
+      <div class="card">
+        <p class="card-title">Catatan</p>
+        <h3>Hanya 7,5% pernah dilatih</h3>
+        <div class="big-figure"><span class="value mono">29</span><span class="unit">dari 389 usaha</span></div>
+        <div class="insight">Sebagian besar (360 usaha, 92,5%) belum pernah mengikuti pelatihan produksi maupun pemasaran apa pun &mdash; ruang besar bagi program pemberdayaan desa untuk meningkatkan kapasitas pelaku UMKM.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>Dashboard Statistik Desa Cantik Balerejo.</span>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     Mini charting engine — vanilla JS + Canvas 2D, no libraries.
+     ============================================================ */
+
+  var GREEN = ['#1B4332','#235C41','#2D6A4F','#3E8763','#52A675','#74C69D','#95D5B2','#B7E4C7','#D8F3DC'];
+  var GRID = '#E7F1EA';
+  var TEXT_MUTED = '#5B7267';
+  var TEXT_STRONG = '#12261B';
+  var BODY_FONT = 'Inter, -apple-system, sans-serif';
+  var MONO_FONT = "'IBM Plex Mono', monospace";
+
+  function shadesFor(n){
+    var out = [];
+    for (var i=0;i<n;i++){ out.push(GREEN[Math.min(i, GREEN.length-1)]); }
+    return out;
+  }
+
+  function fmtInt(v){
+    return Math.round(v).toLocaleString('id-ID');
+  }
+
+  // Prepare a canvas for crisp drawing at the current device pixel ratio,
+  // sized to whatever CSS box its parent already occupies.
+  function prepCanvas(canvas){
+    var rect = canvas.parentElement.getBoundingClientRect();
+    var dpr = window.devicePixelRatio || 1;
+    var w = Math.max(1, Math.round(rect.width));
+    var h = Math.max(1, Math.round(rect.height));
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    return { ctx: ctx, w: w, h: h };
+  }
+
+  function fillRoundedRect(ctx, x, y, w, h, r, color){
+    if (w <= 0 || h <= 0) return;
+    var radius = Math.max(0, Math.min(r, w/2, h/2));
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    if (typeof ctx.roundRect === 'function'){
+      ctx.roundRect(x, y, w, h, radius);
+    } else {
+      ctx.moveTo(x+radius, y);
+      ctx.arcTo(x+w, y, x+w, y+h, radius);
+      ctx.arcTo(x+w, y+h, x, y+h, radius);
+      ctx.arcTo(x, y+h, x, y, radius);
+      ctx.arcTo(x, y, x+w, y, radius);
+    }
+    ctx.fill();
+  }
+
+  function truncate(ctx, text, maxWidth){
+    if (ctx.measureText(text).width <= maxWidth) return text;
+    var t = text;
+    while (t.length > 1 && ctx.measureText(t + '…').width > maxWidth){
+      t = t.slice(0, -1);
+    }
+    return t + '…';
+  }
+
+  function wrapCentered(ctx, text, cx, y, maxWidth, lineHeight, maxLines){
+    var words = text.split(' ');
+    var lines = [];
+    var current = '';
+    words.forEach(function(word){
+      var test = current ? current + ' ' + word : word;
+      if (ctx.measureText(test).width > maxWidth && current){
+        lines.push(current);
+        current = word;
+      } else {
+        current = test;
+      }
+    });
+    if (current) lines.push(current);
+    if (lines.length > maxLines){
+      lines = lines.slice(0, maxLines);
+      var last = lines[maxLines-1];
+      while (ctx.measureText(last + '…').width > maxWidth && last.length > 1){
+        last = last.slice(0, -1);
+      }
+      lines[maxLines-1] = last + '…';
+    }
+    lines.forEach(function(line, i){
+      ctx.fillText(line, cx, y + i*lineHeight);
+    });
+    return lines.length;
+  }
+
+  // ---- Vertical bar chart (categories on X, values on Y) ----
+  function verticalBarChart(canvas, opts){
+    var labels = opts.labels, data = opts.data, colors = opts.colors;
+    var valueFmt = opts.valueFormatter || fmtInt;
+    var pad = { l: opts.padLeft || 46, r: 10, t: 14, b: 40 };
+
+    function render(){
+      var s = prepCanvas(canvas);
+      var ctx = s.ctx, w = s.w, h = s.h;
+      var chartW = w - pad.l - pad.r;
+      var chartH = h - pad.t - pad.b;
+      var maxVal = Math.max.apply(null, data) * 1.18 || 1;
+
+      // gridlines + y-axis value labels
+      var ticks = 4;
+      ctx.font = '11px ' + BODY_FONT;
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      for (var i=0;i<=ticks;i++){
+        var val = maxVal * i / ticks;
+        var y = pad.t + chartH - (chartH * i/ticks);
+        ctx.strokeStyle = GRID;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(pad.l, Math.round(y)+0.5);
+        ctx.lineTo(pad.l + chartW, Math.round(y)+0.5);
+        ctx.stroke();
+        ctx.fillStyle = TEXT_MUTED;
+        ctx.fillText(valueFmt(val), pad.l - 8, y);
+      }
+
+      // bars
+      var n = data.length;
+      var slot = chartW / n;
+      var barW = Math.min(58, slot * 0.52);
+      data.forEach(function(val, i){
+        var barH = (val / maxVal) * chartH;
+        var x = pad.l + slot*i + (slot - barW)/2;
+        var y = pad.t + chartH - barH;
+        fillRoundedRect(ctx, x, y, barW, barH, 6, colors[i % colors.length]);
+
+        // value on top of bar
+        ctx.fillStyle = TEXT_STRONG;
+        ctx.font = "600 11px " + MONO_FONT;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(valueFmt(val), x + barW/2, y - 4);
+
+        // x-axis label (wrapped up to 2 lines)
+        ctx.fillStyle = TEXT_MUTED;
+        ctx.font = '11px ' + BODY_FONT;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        wrapCentered(ctx, labels[i], x + barW/2, pad.t + chartH + 14, slot + 8, 13, 2);
+      });
+    }
+    render();
+    return render;
+  }
+
+  // ---- Horizontal bar chart (categories on Y, values on X) ----
+  function horizontalBarChart(canvas, opts){
+    var labels = opts.labels, data = opts.data, colors = opts.colors;
+    var pad = { l: opts.padLeft || 150, r: 46, t: 6, b: 6 };
+
+    function render(){
+      var s = prepCanvas(canvas);
+      var ctx = s.ctx, w = s.w, h = s.h;
+      var chartW = w - pad.l - pad.r;
+      var chartH = h - pad.t - pad.b;
+      var maxVal = Math.max.apply(null, data) * 1.16 || 1;
+      var n = data.length;
+      var rowH = chartH / n;
+      var barH = Math.min(22, rowH * 0.58);
+
+      data.forEach(function(val, i){
+        var barWpx = (val / maxVal) * chartW;
+        var y = pad.t + rowH*i + (rowH - barH)/2;
+
+        // category label (left, right-aligned, truncated to fit)
+        ctx.fillStyle = TEXT_STRONG;
+        ctx.font = '11.5px ' + BODY_FONT;
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        var label = truncate(ctx, labels[i], pad.l - 16);
+        ctx.fillText(label, pad.l - 12, y + barH/2);
+
+        // bar
+        fillRoundedRect(ctx, pad.l, y, barWpx, barH, 5, colors[i % colors.length]);
+
+        // value at bar end
+        ctx.fillStyle = TEXT_MUTED;
+        ctx.font = '11px ' + MONO_FONT;
+        ctx.textAlign = 'left';
+        ctx.fillText(fmtInt(val), pad.l + barWpx + 8, y + barH/2);
+      });
+    }
+    render();
+    return render;
+  }
+
+  // ---- Donut chart (2 segments, with % label in the center) ----
+  function donutChart(canvas, opts){
+    var values = opts.values, colors = opts.colors;
+    var centerLabel = opts.centerLabel || 'dari total';
+
+    function render(){
+      var s = prepCanvas(canvas);
+      var ctx = s.ctx, w = s.w, h = s.h;
+      var cx = w/2, cy = h/2;
+      var radius = Math.max(10, Math.min(w, h)/2 - 6);
+      var inner = radius * 0.66;
+      var total = values.reduce(function(a,b){ return a+b; }, 0) || 1;
+      var start = -Math.PI/2;
+
+      values.forEach(function(v, i){
+        var angle = (v/total) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, start, start + angle);
+        ctx.closePath();
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+        start += angle;
+      });
+
+      // punch out the center to make it a donut
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(cx, cy, inner, 0, Math.PI*2);
+      ctx.fill();
+      ctx.globalCompositeOperation = 'source-over';
+
+      // center percentage label
+      var pct = Math.round((values[0]/total) * 100);
+      ctx.fillStyle = TEXT_STRONG;
+      ctx.font = "600 " + Math.round(inner*0.62) + "px Fraunces, Georgia, serif";
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(pct + '%', cx, cy - inner*0.16);
+      ctx.fillStyle = TEXT_MUTED;
+      ctx.font = Math.max(10, Math.round(inner*0.19)) + 'px ' + BODY_FONT;
+      ctx.fillText(centerLabel, cx, cy + inner*0.32);
+    }
+    render();
+    return render;
+  }
+
+  /* ============================================================
+     Wire up every chart with the dataset's actual figures.
+     ============================================================ */
+  var renderers = [];
+
+  renderers.push(verticalBarChart(document.getElementById('chartDusunJumlah'), {
+    labels: ['Balerejo','Selopuro','Nglongko','Binowo'],
+    data: [174,85,70,60],
+    colors: shadesFor(4)
+  }));
+
+  renderers.push(verticalBarChart(document.getElementById('chartDusunOmzet'), {
+    labels: ['Balerejo','Binowo','Nglongko','Selopuro'],
+    data: [695000000,184700000,110083000,105600000],
+    colors: shadesFor(4),
+    padLeft: 56,
+    valueFormatter: function(v){ return 'Rp' + Math.round(v/1000000) + 'jt'; }
+  }));
+
+  renderers.push(horizontalBarChart(document.getElementById('chartKategori'), {
+    labels: ['Perdagangan & Reparasi','Akomodasi & Makan Minum','Industri Pengolahan','Jasa Lainnya','Penyewaan & Sewa Guna','Profesional & Ilmiah','Pendidikan','Informasi & Komunikasi','Treatment Air & Limbah','Kesenian & Hiburan','Pengangkutan & Pergudangan','Kesehatan & Sosial'],
+    data: [149,132,66,19,5,5,4,4,2,1,1,1],
+    colors: shadesFor(12)
+  }));
+
+  renderers.push(verticalBarChart(document.getElementById('chartOmzetBin'), {
+    labels: ['≤ Rp500rb','Rp500rb–1jt','Rp1–2jt','Rp2–5jt','Rp5–10jt','> Rp10jt'],
+    data: [115,129,61,57,14,13],
+    colors: shadesFor(6)
+  }));
+
+  renderers.push(verticalBarChart(document.getElementById('chartUsiaBin'), {
+    labels: ['≤ 2 tahun','3–5 tahun','6–10 tahun','11–20 tahun','> 20 tahun'],
+    data: [63,66,92,106,62],
+    colors: shadesFor(5)
+  }));
+
+  renderers.push(verticalBarChart(document.getElementById('chartDekade'), {
+    labels: ['< 1990','1990an','2000an','2010an','2020an'],
+    data: [9,16,57,142,165],
+    colors: shadesFor(5)
+  }));
+
+  renderers.push(donutChart(document.getElementById('chartIzinDonut'), {
+    values: [81,308],
+    colors: ['#1B4332','#B7E4C7'],
+    centerLabel: 'berizin'
+  }));
+
+  renderers.push(horizontalBarChart(document.getElementById('chartDokumen'), {
+    labels: ['NIB','Sertifikat Halal','PIRT','Pendaftaran Merek'],
+    data: [74,25,13,1],
+    colors: shadesFor(4),
+    padLeft: 120
+  }));
+
+  renderers.push(donutChart(document.getElementById('chartMedsosDonut'), {
+    values: [128,261],
+    colors: ['#1B4332','#B7E4C7'],
+    centerLabel: 'aktif medsos'
+  }));
+
+  renderers.push(horizontalBarChart(document.getElementById('chartPlatform'), {
+    labels: ['Facebook','TikTok','Instagram'],
+    data: [101,46,30],
+    colors: shadesFor(3),
+    padLeft: 90
+  }));
+
+  renderers.push(donutChart(document.getElementById('chartPelatihanDonut'), {
+    values: [29,360],
+    colors: ['#1B4332','#B7E4C7'],
+    centerLabel: 'pernah dilatih'
+  }));
+
+  // Redraw all charts on resize (debounced) since canvas isn't intrinsically responsive.
+  var resizeTimer = null;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){
+      renderers.forEach(function(render){ render(); });
+    }, 120);
+  });
+
+  // Re-render once web fonts finish loading so text metrics/measurements are correct.
+  if (document.fonts && document.fonts.ready){
+    document.fonts.ready.then(function(){
+      renderers.forEach(function(render){ render(); });
+    });
+  }
+})();
+</script>
+</body>
+</html>
